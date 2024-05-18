@@ -1,0 +1,360 @@
+// 1. მარტივი JFrame და JButton
+import javax.swing.*;
+import java.awt.*;
+
+public class Example1 extends JFrame {
+    public Example1() {
+        // შექმენი JFrame
+        setTitle("მარტივი JFrame");
+        setSize(300, 200);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null); // გახსნა ცენტრში
+        
+        // შექმენი JButton
+        JButton btn = new JButton("დააჭირეთ აქ");
+        btn.setFont(new Font("Arial", Font.PLAIN, 16)); // შრიფტის დაყენება
+        
+        // დაამატე ღილაკი JFrame-ზე
+        setLayout(new FlowLayout());
+        add(btn);
+    }
+    
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new Example1().setVisible(true);
+            }
+        });
+    }
+}
+
+// 2. JLabel და JTextField
+import javax.swing.*;
+import java.awt.*;
+
+public class Example2 extends JFrame {
+    public Example2() {
+        setTitle("JLabel და JTextField");
+        setSize(300, 150);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        
+        // შექმენი JPanel და დაამატე კომპონენტები
+        JPanel panel = new JPanel(new FlowLayout());
+        JLabel label = new JLabel("შეიყვანეთ ტექსტი: ");
+        JTextField textField = new JTextField(15); // მაქსიმუმი 15 სიმბოლო
+        panel.add(label);
+        panel.add(textField);
+        
+        // დაამატე JPanel JFrame-ზე
+        add(panel, BorderLayout.CENTER);
+    }
+    
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new Example2().setVisible(true);
+            }
+        });
+    }
+}
+
+// 3. JComboBox
+import javax.swing.*;
+import java.awt.*;
+
+public class Example3 extends JFrame {
+    public Example3() {
+        setTitle("JComboBox");
+        setSize(300, 200);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        
+        // შექმენი JComboBox
+        String[] options = {"ვარიანტი 1", "ვარიანტი 2", "ვარიანტი 3"};
+        JComboBox<String> comboBox = new JComboBox<>(options);
+        
+        // დაამატე JComboBox JFrame-ზე
+        setLayout(new FlowLayout());
+        add(comboBox);
+    }
+    
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new Example3().setVisible(true);
+            }
+        });
+    }
+}
+
+// 4. JRadioButton და JCheckBox
+import javax.swing.*;
+import java.awt.*;
+
+public class Example4 extends JFrame {
+    public Example4() {
+        setTitle("JRadioButton და JCheckBox");
+        setSize(300, 200);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        
+        // შექმენი JPanel და დაამატე კომპონენტები
+        JPanel panel = new JPanel(new GridLayout(2, 2));
+        JRadioButton radioButton1 = new JRadioButton("რადიო ღილაკი 1");
+        JRadioButton radioButton2 = new JRadioButton("რადიო ღილაკი 2");
+        JCheckBox checkBox1 = new JCheckBox("მონიშვნის ყუთი 1");
+        JCheckBox checkBox2 = new JCheckBox("მონიშვნის ყუთი 2");
+        panel.add(radioButton1);
+        panel.add(radioButton2);
+        panel.add(checkBox1);
+        panel.add(checkBox2);
+        
+        // დაამატე JPanel JFrame-ზე
+        add(panel, BorderLayout.CENTER);
+    }
+    
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new Example4().setVisible(true);
+            }
+        });
+    }
+}
+
+// 5. JSlider
+import javax.swing.*;
+import java.awt.*;
+
+public class Example5 extends JFrame {
+    public Example5() {
+        setTitle("JSlider");
+        setSize(300, 200);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        
+        // შექმენი JSlider
+        JSlider slider = new JSlider(JSlider.HORIZONTAL, 0, 100, 50);
+        slider.setMajorTickSpacing(20);
+        slider.setMinorTickSpacing(5);
+        slider.setPaintTicks(true);
+        slider.setPaintLabels(true);
+        
+        // დაამატე JSlider JFrame-ზე
+        setLayout(new FlowLayout());
+        add(slider);
+    }
+    
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new Example5().setVisible(true);
+            }
+        });
+    }
+}
+
+// 6. JProgressBar
+import javax.swing.*;
+import java.awt.*;
+
+public class Example6 extends JFrame {
+    private JProgressBar progressBar;
+    
+    public Example6() {
+        setTitle("JProgressBar");
+        setSize(300, 150);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        
+        // შექმენი JProgressBar
+        progressBar = new JProgressBar(0, 100);
+        progressBar.setValue(0);
+        progressBar.setStringPainted(true); // აჩვენებს პროცენტს
+        
+        // დაამატე JProgressBar JFrame-ზე
+        setLayout(new FlowLayout());
+        add(progressBar);
+        
+        // დაიწყე პროგრესის მიმდევრობა
+        startProgressBar();
+    }
+    
+    private void startProgressBar() {
+        new Thread(() -> {
+            int value = 0;
+            while (value < 100) {
+                try {
+                    Thread.sleep(100); // დავიცადოთ 100 მილიწამი
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                value += 5; // გავზარდოთ მნიშვნელობა 5-ით
+                progressBar.setValue(value);
+            }
+        }).start();
+    }
+    
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new Example6().setVisible(true);
+            }
+        });
+    }
+}
+
+
+// 7. JFileChooser
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+
+public class Example7 extends JFrame {
+    private JTextField filePathField;
+
+    public Example7() {
+        setTitle("JFileChooser");
+        setSize(400, 200);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+
+        // შექმენი JPanel და დაამატე კომპონენტები
+        JPanel panel = new JPanel(new BorderLayout());
+        JButton browseButton = new JButton("დათვალიერება");
+        filePathField = new JTextField(20);
+        panel.add(filePathField, BorderLayout.CENTER);
+        panel.add(browseButton, BorderLayout.EAST);
+
+        // დაამატე JPanel JFrame-ზე
+        add(panel, BorderLayout.NORTH);
+
+        // დაამატე ღილაკისთვის მოვლენის მსმენელი
+        browseButton.addActionListener(new ActionListener() {
+            public void run() {
+                JFileChooser fileChooser = new JFileChooser();
+                int result = fileChooser.showOpenDialog(Example7.this);
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    File selectedFile = fileChooser.getSelectedFile();
+                    filePathField.setText(selectedFile.getAbsolutePath());
+                }
+            }
+        });
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new Example7().setVisible(true);
+            }
+        });
+    }
+}
+
+// 8. JMenuBar და JMenu
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class Example8 extends JFrame {
+    public Example8() {
+        setTitle("JMenuBar და JMenu");
+        setSize(400, 300);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+
+        // შექმენი JMenuBar და JMenu
+        JMenuBar menuBar = new JMenuBar();
+        JMenu fileMenu = new JMenu("ფაილი");
+        JMenuItem openMenuItem = new JMenuItem("გახსნა");
+        JMenuItem saveMenuItem = new JMenuItem("შენახვა");
+        fileMenu.add(openMenuItem);
+        fileMenu.add(saveMenuItem);
+        menuBar.add(fileMenu);
+
+        // დაამატე JMenuBar JFrame-ზე
+        setJMenuBar(menuBar);
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new Example8().setVisible(true);
+            }
+        });
+    }
+}
+
+// 9. JTabbedPane
+import javax.swing.*;
+import java.awt.*;
+
+public class Example9 extends JFrame {
+    public Example9() {
+        setTitle("JTabbedPane");
+        setSize(400, 300);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+
+        // შექმენი JTabbedPane და დაამატე თაბები
+        JTabbedPane tabbedPane = new JTabbedPane();
+        JPanel panel1 = new JPanel();
+        JPanel panel2 = new JPanel();
+        JPanel panel3 = new JPanel();
+        tabbedPane.addTab("თაბი 1", panel1);
+        tabbedPane.addTab("თაბი 2", panel2);
+        tabbedPane.addTab("თაბი 3", panel3);
+
+        // დაამატე JTabbedPane JFrame-ზე
+        add(tabbedPane, BorderLayout.CENTER);
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new Example9().setVisible(true);
+            }
+        });
+    }
+}
+
+// 10. JTable
+import javax.swing.*;
+import java.awt.*;
+
+public class Example10 extends JFrame {
+    public Example10() {
+        setTitle("JTable");
+        setSize(400, 300);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+
+        // შექმენი მონაცემები JTable-სთვის
+        String[] columnNames = {"სახელი", "გვარი", "ასაკი"};
+        Object[][] data = {
+                {"ნიკა", "ნიკაძე", 25},
+                {"გიორგი", "გიორგაძე", 30},
+                {"ანა", "ანაძე", 28},
+                {"მარიამ", "მარიამიძე", 35}
+        };
+
+        // შექმენი JTable
+        JTable table = new JTable(data, columnNames);
+
+        // დაამატე JTable JFrame-ზე
+        JScrollPane scrollPane = new JScrollPane(table);
+        add(scrollPane, BorderLayout.CENTER);
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new Example10().setVisible(true);
+            }
+        });
+    }
+}
